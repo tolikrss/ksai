@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as qrCodeJS from 'qrcodejs';
+import QRCode from 'qrcodejs/qrcode';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +13,10 @@ export class QrCodeService {
   generate(info: any) {
     const dataToCode: string = JSON.stringify(info);
 
-    const temp = qrCodeJS;
+    const temp = QRCode;
     debugger;
 
-    const result = qrCodeJS.makeCode(dataToCode);
+    const result = QRCode.makeCode(dataToCode);
 
     debugger; // temp
 

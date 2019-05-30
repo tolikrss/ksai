@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { QrCodeService } from './../../../../services/qr-code.service';
 
 @Component({
   selector: 'app-main-view',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _qrCode: QrCodeService,
+  ) { }
 
   ngOnInit() {
   }
