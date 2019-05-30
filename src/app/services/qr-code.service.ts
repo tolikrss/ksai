@@ -24,6 +24,6 @@ export class QrCodeService {
   }
 
   parse(imageFile: File): string {
-
+    return null;
   }
 }
