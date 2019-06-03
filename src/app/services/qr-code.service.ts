@@ -1,29 +1,71 @@
 import { Injectable } from '@angular/core';
-import * as qrCodeJS from 'qrcodejs';
+import * as qrCode from 'qrcode';
+import qrCodeReader from 'qrcode-reader';
+import { reject } from 'q';
 
-@Injectable({
+@Injectable( {
   providedIn: 'root'
-})
+} )
 export class QrCodeService {
 
-  constructor() { 
-    this.generate('test');
+  constructor() {
+    this.generate( 'test' );
   }
 
-  generate(info: any) {
-    const dataToCode: string = JSON.stringify(info);
+  /**
+   * @param info
+   *
+   * @return {Promise<string>} - Base64 string of QRCode image
+   */
+  async generate( info: any ): Promise<string> {
+    const dataToCode: string = JSON.stringify( info );
 
-    const temp = qrCodeJS;
-    debugger;
-
-    const result = qrCodeJS.makeCode(dataToCode);
-
-    debugger; // temp
+    const result = await qrCode.toDataURL( dataToCode );
 
     return result;
   }
 
-  parse(imageFile: File): string {
-    return null;
+  parse( imageFile: File | string ): Promise<string> {
+    const imageDataURi = typeof imageFile === 'string'
+      ? imageFile
+      : this._getDataUri( imageFile );
+
+    return new Promise( ( resolve, reject ) => {
+      const qr = new qrCodeReader();
+
+      qr.decode( imageDataURi );
+
+      qr.callback = function ( err, res ) {
+        if ( err ) {
+          reject( err );
+        } else {
+          resolve( res );
+        }
+      }
+    } );
+  }
+
+  private _getDataUri( url ): Promise<string> {
+    return new Promise<any>( ( resolve, reject ) => {
+      try {
+        const image = new Image();
+
+        image.onload = function () {
+          const canvas = document.createElement( 'canvas' );
+
+          canvas.width = this.naturalWidth;
+          canvas.height = this.naturalHeight;
+          canvas.getContext( '2d' ).drawImage( this, 0, 0 );
+
+          const result = canvas.toDataURL( 'image/png' );
+
+          resolve( result );
+        };
+
+        image.src = url;
+      } catch ( err ) {
+        reject( 'Can\'t get image DataURI' );
+      }
+    } );
   }
 }
