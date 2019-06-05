@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
 import QRCode from 'qrcodejs/qrcode';
-=======
 import * as qrCode from 'qrcode';
 import qrCodeReader from 'qrcode-reader';
 import { reject } from 'q';
->>>>>>> 07bd8a7829786c66ac5f4704fdd4e7d73d364970
 
 @Injectable( {
   providedIn: 'root'
@@ -23,18 +20,11 @@ export class QrCodeService {
    */
   async generate( info: any ): Promise<string> {
     const dataToCode: string = JSON.stringify( info );
-
-<<<<<<< HEAD
-    const temp = QRCode;
-    debugger;
-
-    const result = QRCode.makeCode(dataToCode);
-=======
+ 
     const result = await qrCode.toDataURL( dataToCode );
 
     return result;
   }
->>>>>>> 07bd8a7829786c66ac5f4704fdd4e7d73d364970
 
   parse( imageFile: File | string ): Promise<string> {
     const imageDataURi = typeof imageFile === 'string'
