@@ -7,7 +7,7 @@ import { QrCodeService } from '../../../../services/qr-code.service';
   styleUrls: [ './main-container.component.sass' ]
 } )
 export class MainContainerComponent implements OnInit {
-
+  public readonly displayedColumns: string[] = ['title'];
   public readonly qrCodeLevel: string = 'M';
 
   public readonly qrCodeSize: number = 256;

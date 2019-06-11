@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import QRCode from 'qrcodejs/qrcode';
 import * as qrCode from 'qrcode';
-import qrCodeReader from 'qrcode-reader';
 import { reject } from 'q';
+import {HttpClient} from "@angular/common/http";
+import {map} from "rxjs/operators";
+import jsQR from "jsqr";
 
 @Injectable( {
   providedIn: 'root'
 } )
 export class QrCodeService {
 
-  constructor() {
+  private readonly _readQRApi: string = 'http://api.qrserver.com/v1/read-qr-code/';
+
+  constructor(
+    private _http: HttpClient,
+  ) {
     this.generate( 'test' );
   }
 
@@ -20,30 +26,34 @@ export class QrCodeService {
    */
   async generate( info: any ): Promise<string> {
     const dataToCode: string = JSON.stringify( info );
- 
+
     const result = await qrCode.toDataURL( dataToCode );
 
     return result;
   }
 
-  parse( imageFile: File | string ): Promise<string> {
-    const imageDataURi = typeof imageFile === 'string'
-      ? imageFile
-      : this._getDataUri( imageFile );
+  async parse( imageFile: File ): Promise<any> {
+    const imageData = await this.fileToBase64( imageFile );
+    const myData = await new Promise(resolve => {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      const img = new Image();
+      img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        context.drawImage(img, 0, 0 );
+        const _myData = context.getImageData(0, 0, img.width, img.height);
+        resolve({
+          data: _myData,
+          width: img.width,
+          height: img.height,
+        });
+      };
+      img.src = imageData;
+    });
+    const temp = jsQR(myData.data.data, myData.data.width, myData.data.height);
+    debugger;
 
-    return new Promise( ( resolve, reject ) => {
-      const qr = new qrCodeReader();
-
-      qr.decode( imageDataURi );
-
-      qr.callback = function ( err, res ) {
-        if ( err ) {
-          reject( err );
-        } else {
-          resolve( res );
-        }
-      }
-    } );
   }
 
   private _getDataUri( url ): Promise<string> {
@@ -52,10 +62,10 @@ export class QrCodeService {
         const image = new Image();
 
         image.onload = function () {
-          const canvas = document.createElement( 'canvas' );
+          const canvas = document.createElement( 'canvas' ) as any;
 
-          canvas.width = this.naturalWidth;
-          canvas.height = this.naturalHeight;
+          canvas.width = (<any>this).naturalWidth;
+          canvas.height = (<any>this).naturalHeight;
           canvas.getContext( '2d' ).drawImage( this, 0, 0 );
 
           const result = canvas.toDataURL( 'image/png' );
@@ -67,6 +77,15 @@ export class QrCodeService {
       } catch ( err ) {
         reject( 'Can\'t get image DataURI' );
       }
+    } );
+  }
+
+  fileToBase64( file: File ): Promise<string> {
+    return new Promise( ( resolve, reject ) => {
+      const reader = new FileReader();
+      reader.readAsDataURL( file );
+      reader.onload = () => resolve( reader.result as string );
+      reader.onerror = error => reject( error );
     } );
   }
 }
