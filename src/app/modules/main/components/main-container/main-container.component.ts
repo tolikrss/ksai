@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { QrCodeService } from '../../../../services/qr-code.service';
+import {Component, OnInit} from '@angular/core';
+import {QrCodeService} from '../../../../services/qr-code.service';
 import {OneUserModalComponent} from '../one-user-modal/one-user-modal.component';
 import {MatDialog} from '@angular/material';
 import {UserModel} from '../../models/user.model';
@@ -10,11 +10,11 @@ export interface DialogData {
   user: UserModel;
 }
 
-@Component( {
+@Component({
   selector: 'app-main-container',
   templateUrl: './main-container.component.html',
-  styleUrls: [ './main-container.component.sass' ]
-} )
+  styleUrls: ['./main-container.component.sass']
+})
 export class MainContainerComponent implements OnInit {
   public readonly users$: Observable<UserModel[]>;
 
@@ -32,23 +32,15 @@ export class MainContainerComponent implements OnInit {
   /**
    * Component Methods
    */
+  async onChange(evt: any) {
+    const file: File = evt.target.files[0];
 
-  openDialog(): void {
-    const dialogRef = this._matDialog.open(OneUserModalComponent, {
-      width: '550px',
-      data: {},
-    });
+    const result = await this._qrCode.parse(file);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
+    this._users.addNewUser(result as UserModel);
 
-  async onChange( evt: any ) {
-    const file: File = evt.target.files[ 0 ];
-
-    const result = await this._qrCode.parse( file );
-    debugger;
+    evt.target.value = null;
+    // debugger;
   }
 
 }

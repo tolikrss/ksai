@@ -13,6 +13,7 @@ function guid(): string {
 
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
+
 const testUser = {
   id: guid(),
   firstName: 'Anatoliy',
@@ -39,7 +40,7 @@ export class UsersService {
   addNewUser(userData: UserModel) {
     userData.id = guid();
 
-    this._usersList$.next(this.users.push(userData));
+    this._usersList$.next([...this.users, userData]);
   }
 
   deleteUser(id: string | number): void {

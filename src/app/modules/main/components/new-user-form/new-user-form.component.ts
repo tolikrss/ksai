@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UsersService} from '../../services/users.service';
 
 @Component({
   selector: 'app-new-user-form',
@@ -14,14 +15,21 @@ export class NewUserFormComponent implements OnInit {
     faculty: new FormControl('', Validators.required),
   });
 
-  constructor() {
+  constructor(
+    private _users: UsersService,
+  ) {
   }
 
   ngOnInit() {
   }
 
   save() {
-    // TODO
+    this._users.addNewUser({
+      firstName: this.filtersFormGroup.controls.firstName.value,
+      lastName: this.filtersFormGroup.controls.lastName.value,
+      age: this.filtersFormGroup.controls.age.value,
+      faculty: this.filtersFormGroup.controls.faculty.value,
+    });
   }
 
 }
