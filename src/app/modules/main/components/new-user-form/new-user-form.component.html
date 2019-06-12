@@ -21,5 +21,7 @@
 
   </div>
 
-  <button mat-raised-button color="accent" (click)="save()">Save</button>
+  <button mat-raised-button color="accent"
+          [disabled]="!filtersFormGroup?.valid"
+          (click)="save()">Save</button>
 </form>
