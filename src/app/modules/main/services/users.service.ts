@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {QrCodeService} from '../../../services/qr-code.service';
 import {UserModel} from '../models/user.model';
 import {BehaviorSubject, Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 
 function guid(): string {
@@ -22,6 +23,8 @@ const testUser = {
   faculty: 'FPM',
 };
 
+const storageUsersKey = 'ksai_lab_users';
+
 @Injectable()
 export class UsersService {
 
@@ -35,6 +38,15 @@ export class UsersService {
   constructor(
     private qrCode: QrCodeService,
   ) {
+    this._usersList$.next(JSON.parse(window.localStorage.getItem(storageUsersKey)));
+
+    this.usersList$
+      .pipe(
+        tap(res => {
+          window.localStorage.setItem(storageUsersKey, JSON.stringify(res));
+        })
+      )
+      .subscribe();
   }
 
   addNewUser(userData: UserModel) {
