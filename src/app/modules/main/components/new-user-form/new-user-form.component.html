@@ -1,3 +1,25 @@
-<p>
-  new-user-form works!
-</p>
+<form class="" [formGroup]="filtersFormGroup" [noValidate]="true">
+
+  <div class="">
+
+    <mat-form-field class="" appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" [autocomplete]="false"/>
+    </mat-form-field>
+    <mat-form-field class="" appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" [autocomplete]="false"/>
+    </mat-form-field>
+    <mat-form-field class="" appearance="outline">
+      <mat-label>Age</mat-label>
+      <input matInput formControlName="ag" [autocomplete]="false"/>
+    </mat-form-field>
+    <mat-form-field class="" appearance="outline">
+      <mat-label>Facultye</mat-label>
+      <input matInput formControlName="faculty" [autocomplete]="false"/>
+    </mat-form-field>
+
+  </div>
+
+  <button mat-raised-button (click)="save()">Save</button>
+</form>

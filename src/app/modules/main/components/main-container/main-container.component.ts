@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { QrCodeService } from '../../../../services/qr-code.service';
 import {OneUserModalComponent} from '../one-user-modal/one-user-modal.component';
 import {MatDialog} from '@angular/material';
+import {UserModel} from '../../models/user.model';
+import {Observable} from 'rxjs';
+import {UsersService} from '../../services/users.service';
 
 export interface DialogData {
   [ key: string ]: any;
@@ -13,17 +16,14 @@ export interface DialogData {
   styleUrls: [ './main-container.component.sass' ]
 } )
 export class MainContainerComponent implements OnInit {
-  public readonly displayedColumns: string[] = ['title'];
-  public readonly qrCodeLevel: string = 'M';
-
-  public readonly qrCodeSize: number = 256;
-
-  public qrData: any = { date: 'test' };
+  public readonly users$: Observable<UserModel[]>;
 
   constructor(
     private _qrCode: QrCodeService,
     private _matDialog: MatDialog,
+    private _users: UsersService,
   ) {
+    this.users$ = this._users.usersList$;
   }
 
   ngOnInit() {

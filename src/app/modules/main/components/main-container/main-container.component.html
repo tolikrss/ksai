@@ -1,20 +1,7 @@
-<qrcode
-  [qrdata]="qrData | json"
-  [size]="qrCodeSize"
-  [level]="qrCodeLevel"
-></qrcode>
+
 
 <div></div>
 
 <input type="file" (change)="onChange($event)" />
 
-<!--<div class="mat-elevation-z8">-->
-  <!--<table mat-table [dataSource]="[]">-->
-    <!--<ng-container matColumnDef="title">-->
-      <!--<th mat-header-cell *matHeaderCellDef>Title</th>-->
-      <!--<td mat-cell *matCellDef="let row">{{ row.title }}</td>-->
-    <!--</ng-container>-->
-    <!--<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-    <!--<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-  <!--</table>-->
-<!--</div>-->
+<app-users-table [users]="users$ | async"></app-users-table>

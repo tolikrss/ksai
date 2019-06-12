@@ -1,3 +1,8 @@
+
 export interface UserModel {
-  [key: string]: any; // TODO
+  id?: number|string;
+  firstName: string;
+  lastName: string;
+  age: number;
+  faculty: string;
 }

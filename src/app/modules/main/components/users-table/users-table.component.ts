@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./users-table.component.sass']
 })
 export class UsersTableComponent implements OnInit {
+  public readonly displayedColumns: string[] = ['title'];
 
   constructor() { }
 

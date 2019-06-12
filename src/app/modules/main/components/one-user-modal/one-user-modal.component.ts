@@ -9,6 +9,11 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 })
 export class OneUserModalComponent implements OnInit {
 
+  public qrData: any = { date: 'test' };
+  public readonly qrCodeLevel: string = 'M';
+
+  public readonly qrCodeSize: number = 256;
+
   constructor(
     public dialogRef: MatDialogRef<OneUserModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
