@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 import {UsersService} from '../../services/users.service';
 
 export interface DialogData {
-  [ key: string ]: any;
+  user: UserModel;
 }
 
 @Component( {

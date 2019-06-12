@@ -7,8 +7,10 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { NewUserFormComponent } from './components/new-user-form/new-user-form.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 import { OneUserModalComponent } from './components/one-user-modal/one-user-modal.component';
-import {MatDialogModule, MatTableModule} from '@angular/material';
+import {MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatTableModule} from '@angular/material';
 import {UsersService} from './services/users.service';
+import {ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule( {
   declarations: [
@@ -30,6 +32,10 @@ import {UsersService} from './services/users.service';
 
     MatDialogModule,
     MatTableModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
 
     MainRoutingModule,
 

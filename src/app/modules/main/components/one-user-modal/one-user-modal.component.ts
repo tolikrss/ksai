@@ -18,6 +18,7 @@ export class OneUserModalComponent implements OnInit {
     public dialogRef: MatDialogRef<OneUserModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
+    this.qrData = data.user;
   }
 
   ngOnInit() {

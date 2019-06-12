@@ -1,7 +1,10 @@
+<div class="edit-controls">
+  <app-new-user-form></app-new-user-form>
 
-
-<div></div>
-
-<input type="file" (change)="onChange($event)" />
+  <div class="read-qr">
+    <p class="read-qr__title">or read info from QR Code</p>
+    <input class="read-qr__btn" type="file" (change)="onChange($event)" />
+  </div>
+</div>
 
 <app-users-table [users]="users$ | async"></app-users-table>

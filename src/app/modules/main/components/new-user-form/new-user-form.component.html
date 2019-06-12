@@ -1,25 +1,25 @@
-<form class="" [formGroup]="filtersFormGroup" [noValidate]="true">
+<form class="" [formGroup]="filtersFormGroup">
 
-  <div class="">
+  <div class="inputs">
 
     <mat-form-field class="" appearance="outline">
       <mat-label>First Name</mat-label>
-      <input matInput formControlName="firstName" [autocomplete]="false"/>
+      <input matInput formControlName="firstName"/>
     </mat-form-field>
     <mat-form-field class="" appearance="outline">
       <mat-label>Last Name</mat-label>
-      <input matInput formControlName="lastName" [autocomplete]="false"/>
+      <input matInput formControlName="lastName"/>
     </mat-form-field>
     <mat-form-field class="" appearance="outline">
       <mat-label>Age</mat-label>
-      <input matInput formControlName="ag" [autocomplete]="false"/>
+      <input matInput formControlName="age"/>
     </mat-form-field>
     <mat-form-field class="" appearance="outline">
-      <mat-label>Facultye</mat-label>
-      <input matInput formControlName="faculty" [autocomplete]="false"/>
+      <mat-label>Faculty</mat-label>
+      <input matInput formControlName="faculty"/>
     </mat-form-field>
 
   </div>
 
-  <button mat-raised-button (click)="save()">Save</button>
+  <button mat-raised-button color="accent" (click)="save()">Save</button>
 </form>

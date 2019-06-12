@@ -8,10 +8,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class NewUserFormComponent implements OnInit {
   public filtersFormGroup: FormGroup = new FormGroup({
-    firstName: new FormControl(['', Validators.required]),
-    lastName: new FormControl(['', Validators.required]),
-    age: new FormControl(['', Validators.required]),
-    faculty: new FormControl(['', Validators.required]),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    age: new FormControl('', Validators.required),
+    faculty: new FormControl('', Validators.required),
   });
 
   constructor() {
