@@ -39,7 +39,9 @@ export class UsersService {
     private qrCode: QrCodeService,
   ) {
     const usersFromLocalStorage = JSON.parse(window.localStorage.getItem(storageUsersKey));
-    if (usersFromLocalStorage) this._usersList$.next(usersFromLocalStorage);
+    if (usersFromLocalStorage && Array.isArray(usersFromLocalStorage)) {
+      this._usersList$.next(usersFromLocalStorage);
+    }
 
     this.usersList$
       .pipe(
