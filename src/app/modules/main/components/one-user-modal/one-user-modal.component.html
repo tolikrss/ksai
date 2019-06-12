@@ -1,3 +1,10 @@
+<div class="user-data">
+  <p>First Name: {{qrData?.firstName}}</p>
+  <p>Last Name: {{qrData?.lastName}}</p>
+  <p>Age: {{qrData?.age}}</p>
+  <p>Faculty: {{qrData?.faculty}}</p>
+</div>
+
 <qrcode
   [qrdata]="qrData | json"
   [size]="qrCodeSize"
