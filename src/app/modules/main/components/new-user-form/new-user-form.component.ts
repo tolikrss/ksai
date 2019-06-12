@@ -35,6 +35,8 @@ export class NewUserFormComponent implements OnInit {
       age: this.filtersFormGroup.controls.age.value,
       faculty: this.filtersFormGroup.controls.faculty.value,
     });
+    
+    this.createForm();
   }
 
 }
