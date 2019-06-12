@@ -8,19 +8,24 @@ import {UsersService} from '../../services/users.service';
   styleUrls: ['./new-user-form.component.sass']
 })
 export class NewUserFormComponent implements OnInit {
-  public filtersFormGroup: FormGroup = new FormGroup({
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
-    age: new FormControl('', Validators.required),
-    faculty: new FormControl('', Validators.required),
-  });
+  public filtersFormGroup: FormGroup;
 
   constructor(
     private _users: UsersService,
   ) {
+    this.createForm();
   }
 
   ngOnInit() {
+  }
+
+  createForm() {
+    this.filtersFormGroup = new FormGroup({
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
+      age: new FormControl('', Validators.required),
+      faculty: new FormControl('', Validators.required),
+    });
   }
 
   save() {
