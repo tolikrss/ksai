@@ -38,7 +38,8 @@ export class UsersService {
   constructor(
     private qrCode: QrCodeService,
   ) {
-    this._usersList$.next(JSON.parse(window.localStorage.getItem(storageUsersKey)));
+    const usersFromLocalStorage = JSON.parse(window.localStorage.getItem(storageUsersKey));
+    if(usersFromLocalStorage) this._usersList$.next(usersFromLocalStorage);
 
     this.usersList$
       .pipe(
