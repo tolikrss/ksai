@@ -35,7 +35,7 @@ export class QrCodeService {
   async parse( imageFile: File ): Promise<any> {
     const base64Img = await this.fileToBase64( imageFile );
 
-    const imageData = await new Promise( resolve => {
+    const imageData: any = await new Promise( resolve => {
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
       const img = new Image();
@@ -43,7 +43,7 @@ export class QrCodeService {
         canvas.width = img.width;
         canvas.height = img.height;
         context.drawImage(img, 0, 0 );
-        const _myData = context.getImageData(0, 0, img.width, img.height);
+        const _myData = context.getImageData(0, 0, img.width, img.height) as any;
         resolve( _myData );
       };
       img.src = base64Img;
