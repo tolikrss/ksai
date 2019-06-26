@@ -14,9 +14,9 @@ function guid(): string {
 
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
-
+const _startId = 1123450;
 const testUser = {
-  id: guid(),
+  id: _startId,
   firstName: 'Anatoliy',
   lastName: 'Lakhno',
   age: 23,
@@ -53,7 +53,9 @@ export class UsersService {
   }
 
   addNewUser(userData: UserModel) {
-    userData.id = guid();
+    userData.id = Array.isArray(this._usersList$.value) && this._usersList$.value[0]
+      ? this._usersList$.value[0].id + 1 
+      : _startId;
 
     this._usersList$.next([...this.users, userData]);
   }

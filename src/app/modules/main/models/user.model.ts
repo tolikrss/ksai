@@ -1,6 +1,6 @@
 
 export interface UserModel {
-  id?: number|string;
+  id?: number;
   firstName: string;
   lastName: string;
   age: number;

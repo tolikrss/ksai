@@ -5,7 +5,13 @@
   <p>Faculty: {{qrData?.faculty}}</p>
 </div>
 
+<div class="upc-code">
+  <img alt="Barcoded value {{ qrData.id }}"
+  src="http://bwipjs-api.metafloor.com/?bcid=upce&text={{ qrData.id }}&includetext">
+</div>
+
 <qrcode
+  *ngIf="false"
   [qrdata]="qrData | json"
   [size]="qrCodeSize"
   [level]="qrCodeLevel"
